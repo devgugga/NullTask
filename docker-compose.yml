@@ -3,7 +3,7 @@ services:
     image: postgres:latest
     restart: always
     environment:
-      POSTGRES_USER: nulltask
+      POSTGRES_USER: kayzen
       POSTGRES_PASSWORD: nulltask@pass
       POSTGRES_DB: nulltask
     volumes:

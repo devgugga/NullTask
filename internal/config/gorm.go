@@ -26,5 +26,8 @@ func ConnectDB(conf *DBConfig) (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	db.Exec("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"")
+
 	return db, nil
 }

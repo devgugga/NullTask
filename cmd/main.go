@@ -2,22 +2,15 @@ package main
 
 import (
 	"os"
-	"time"
 
-	"github.com/charmbracelet/log"
 	"github.com/devgugga/NullTask/internal/config"
 	"github.com/devgugga/NullTask/internal/models"
 	"github.com/joho/godotenv"
 )
 
 func main() {
-	// Editing the log settings to make it easily to debug and understanding
-	logger := log.NewWithOptions(os.Stderr, log.Options{
-		ReportCaller:    true,
-		ReportTimestamp: true,
-		TimeFormat:      time.Kitchen,
-		Prefix:          "NullTask 🚫",
-	})
+	// Initialing logger
+	logger := config.Logger()
 
 	// Loading .env file
 	err := godotenv.Load(".env")
@@ -27,7 +20,7 @@ func main() {
 
 	// Getting the environment variables
 	host := os.Getenv("HOST")
-	port := os.Getenv("PORT")
+	dbPort := os.Getenv("PORT")
 	user := os.Getenv("USER")
 	password := os.Getenv("PASSWORD")
 	dbname := os.Getenv("DBNAME")
@@ -35,7 +28,7 @@ func main() {
 	// Setting the database config using the environment value
 	dbConfig := &config.DBConfig{
 		Host:     host,
-		Port:     port,
+		Port:     dbPort,
 		User:     user,
 		Password: password,
 		DBName:   dbname,
@@ -53,4 +46,5 @@ func main() {
 		logger.Error("Failed to creating tables in the database", "error", err)
 	}
 
+	config.StartServer("1323", db, logger)
 }

@@ -13,10 +13,11 @@ type Tasks struct {
 	Description sql.NullString
 	Status      string `gorm:"not null;default:'pending'"`
 	DueDate     *time.Time
-	UserID      uint
+	UserID      uint 
 	CategoryID  sql.NullInt64
 	CompletedAt sql.NullTime
 	Reminder    *time.Time
 	Notes       sql.NullString
 	User        User `gorm:"foreignKey:UserID"`
 }
+
